@@ -1,5 +1,6 @@
-package android.example.com.socialmediaapp
+package android.example.com.socialmediaapp.main
 
+import android.example.com.socialmediaapp.R
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
