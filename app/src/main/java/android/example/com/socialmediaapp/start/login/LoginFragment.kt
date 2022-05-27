@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.example.com.socialmediaapp.R
 import android.example.com.socialmediaapp.databinding.FragmentLoginBinding
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,6 +28,10 @@ class LoginFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding: FragmentLoginBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
+
+        binding.registerClickTv.setOnClickListener { view: View ->
+            view.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
         return binding.root
     }
 }

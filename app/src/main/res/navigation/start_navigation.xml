@@ -10,6 +10,16 @@
         android:name="android.example.com.socialmediaapp.start.login.LoginFragment"
         tools:layout="@layout/fragment_login">
 
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="android.example.com.socialmediaapp.start.register.RegisterFragment"
+        tools:layout="@layout/fragment_register">
+
     </fragment>
 
 </navigation>
