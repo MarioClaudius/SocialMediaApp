@@ -9,4 +9,7 @@ import androidx.room.Query
 interface SocialMediaDatabaseDao {
     @Insert
     fun insertAccount(account: Account)
+
+    @Query("SELECT * FROM account WHERE (username = :usernameOrEmail OR email = :usernameOrEmail) AND password = :password")
+    suspend fun getAccount(usernameOrEmail: String, password: String): Account
 }

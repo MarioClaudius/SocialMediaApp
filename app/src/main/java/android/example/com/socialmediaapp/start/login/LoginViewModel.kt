@@ -2,13 +2,12 @@ package android.example.com.socialmediaapp.start.login
 
 import android.app.Application
 import android.example.com.socialmediaapp.database.SocialMediaDatabaseDao
+import android.example.com.socialmediaapp.database.entities.Account
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.*
 
 class LoginViewModel(
     private val database: SocialMediaDatabaseDao,
@@ -47,7 +46,20 @@ class LoginViewModel(
     }
 
     fun login(usernameOrEmail: String, password: String) {
-
+        if (usernameOrEmail.isNullOrEmpty() || password.isNullOrEmpty()) {
+            _errorInput.value = true
+        }
+        else {
+            uiScope.launch {
+                val account = database.getAccount(usernameOrEmail, password)
+                if (account == null) {
+                    _accountIsNotExist.value = true
+                }
+                else {
+                    _loginIsSuccess.value = true
+                }
+            }
+        }
     }
 
     override fun onCleared() {

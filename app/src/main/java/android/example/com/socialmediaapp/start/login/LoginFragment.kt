@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import android.example.com.socialmediaapp.R
 import android.example.com.socialmediaapp.database.SocialMediaDatabase
 import android.example.com.socialmediaapp.databinding.FragmentLoginBinding
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 
@@ -54,6 +56,28 @@ class LoginFragment : Fragment() {
         binding.registerClickTv.setOnClickListener { view: View ->
             view.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
+
+        viewModel.errorInput.observe(viewLifecycleOwner, Observer { error ->
+            if (error) {
+                Toast.makeText(context, "ERROR INPUT", Toast.LENGTH_SHORT).show()
+                viewModel.doneToastErrorInput()
+            }
+        })
+
+        viewModel.accountIsNotExist.observe(viewLifecycleOwner, Observer { error ->
+            if (error) {
+                Toast.makeText(context, "AKUN TIDAK DITEMUKAN", Toast.LENGTH_SHORT).show()
+                viewModel.doneToastAccountIsNotExist()
+            }
+        })
+
+        viewModel.loginIsSuccess.observe(viewLifecycleOwner, Observer { isSuccess ->
+            if (isSuccess) {
+                Toast.makeText(context, "LOGIN BERHASIL", Toast.LENGTH_SHORT).show()
+                viewModel.doneToastLoginIsSuccess()
+            }
+        })
+
         return binding.root
     }
 }
