@@ -59,6 +59,7 @@ class RegisterFragment : Fragment() {
             if (error) {
                 Toast.makeText(context, "INPUT ERROR", Toast.LENGTH_SHORT).show()
                 viewModel.doneToastErrorInput()
+                RegisterDialog.newInstance(R.drawable.failed_logo, "Register Failed", "Username, email, and password input must be filled").show(parentFragmentManager, RegisterDialog.TAG)
             }
         })
 
@@ -66,6 +67,7 @@ class RegisterFragment : Fragment() {
             if (error) {
                 Toast.makeText(context, "AKUN SUDAH TERDAFTAR", Toast.LENGTH_SHORT).show()
                 viewModel.doneToastAccountIsExist()
+                RegisterDialog.newInstance(R.drawable.failed_logo, "Register Failed", "Username or email has been registered before").show(parentFragmentManager, RegisterDialog.TAG)
             }
         })
 
@@ -73,6 +75,7 @@ class RegisterFragment : Fragment() {
             if (isSuccess) {
                 Toast.makeText(context, "AKUN BERHASIL DIDAFTARKAN", Toast.LENGTH_SHORT).show()
                 viewModel.doneToastRegisterIsSuccess()
+                RegisterDialog.newInstance(R.drawable.success_logo, "Register Successfully", "You have successfully register your account into application").show(parentFragmentManager, RegisterDialog.TAG)
             }
         })
 

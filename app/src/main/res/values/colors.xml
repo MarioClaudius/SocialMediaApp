@@ -8,4 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="main_green">#6DD018</color>
+    <color name="red_dialog">#C62828</color>
 </resources>
