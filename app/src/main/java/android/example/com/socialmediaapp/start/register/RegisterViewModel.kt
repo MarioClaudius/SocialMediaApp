@@ -63,25 +63,26 @@ class RegisterViewModel(
         }
         else {
             uiScope.launch {
-                if (database.checkUsernameOrEmail(username, email)) {
-                    _accountIsExist.value = true
-                }
-                else {
+                try {
                     insertAccount(Account(username, email, password))
                     _registerIsSuccess.value = true
+                } catch (e: Exception) {
+                    _accountIsExist.value = true
                 }
             }
         }
     }
 
-    private suspend fun insertAccount(account: Account) {
+    private suspend fun insertAccount(account: Account) {       // ketika di-test tanpa suspend masih dapat berjalan dengan baik
         withContext(Dispatchers.IO) {
             database.insertAccount(account)
         }
+        // database.insertAccount(account)
     }
 
     override fun onCleared() {
         super.onCleared()
+        viewModelJob.cancel()
         Log.i("RegisterViewModel", "RegisterViewModel destroyed!")
     }
 
