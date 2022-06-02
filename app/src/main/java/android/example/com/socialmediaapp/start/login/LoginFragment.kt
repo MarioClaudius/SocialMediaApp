@@ -1,5 +1,6 @@
 package android.example.com.socialmediaapp.start.login
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,8 @@ import android.view.ViewGroup
 import android.example.com.socialmediaapp.R
 import android.example.com.socialmediaapp.database.SocialMediaDatabase
 import android.example.com.socialmediaapp.databinding.FragmentLoginBinding
+import android.example.com.socialmediaapp.main.MainActivity
+import android.example.com.socialmediaapp.start.StartActivity
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -75,6 +78,8 @@ class LoginFragment : Fragment() {
             if (isSuccess) {
                 Toast.makeText(context, "LOGIN BERHASIL", Toast.LENGTH_SHORT).show()
                 viewModel.doneToastLoginIsSuccess()
+                val intent = Intent(activity, MainActivity::class.java)
+                startActivity(intent)
             }
         })
 
