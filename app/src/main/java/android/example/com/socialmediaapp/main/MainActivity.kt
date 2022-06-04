@@ -10,6 +10,8 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import kotlinx.coroutines.*
 
@@ -29,6 +31,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val navController = findNavController(R.id.nav_main_fragment)
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.homeFragment, R.id.chatFragment))
+        setupActionBarWithNavController(navController, appBarConfiguration)
+
         binding.bottomNavigationView.setupWithNavController(navController)
 
 //        viewModelJob = Job()

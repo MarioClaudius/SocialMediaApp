@@ -8,11 +8,13 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="android.example.com.socialmediaapp.main.home.HomeFragment"
+        android:label="Home"
         tools:layout="@layout/fragment_home"/>
 
     <fragment
         android:id="@+id/chatFragment"
         android:name="android.example.com.socialmediaapp.main.chat.ChatFragment"
+        android:label="Chat"
         tools:layout="@layout/fragment_chat"/>
 
 </navigation>
