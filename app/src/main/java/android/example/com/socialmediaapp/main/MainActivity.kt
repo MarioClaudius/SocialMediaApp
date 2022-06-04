@@ -4,50 +4,59 @@ import android.example.com.socialmediaapp.R
 import android.example.com.socialmediaapp.database.SocialMediaDatabase
 import android.example.com.socialmediaapp.database.SocialMediaDatabaseDao
 import android.example.com.socialmediaapp.database.entities.Account
+import android.example.com.socialmediaapp.databinding.ActivityMainBinding
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import androidx.lifecycle.LiveData
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var viewModelJob: Job
+//    private lateinit var viewModelJob: Job
+//
+//    private lateinit var uiScope: CoroutineScope
+//
+//    private lateinit var dataSource: SocialMediaDatabaseDao
 
-    private lateinit var uiScope: CoroutineScope
-
-    private lateinit var dataSource: SocialMediaDatabaseDao
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        viewModelJob = Job()
+        val navController = findNavController(R.id.nav_main_fragment)
+        binding.bottomNavigationView.setupWithNavController(navController)
 
-        uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
-        dataSource = SocialMediaDatabase.getInstance(application).socialMediaDatabaseDao
-
-        uiScope.launch {
-            val data = getAllAccounts()
-
-            val textview = findViewById<TextView>(R.id.TEXT_MAIN_ACTIVITY)
-
-            var str = ""
-            for(account in data) {
-                str += account.username
-            }
-
-            textview.text = str
-        }
-
+//        viewModelJob = Job()
+//
+//        uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+//
+//        dataSource = SocialMediaDatabase.getInstance(application).socialMediaDatabaseDao
+//
+//        uiScope.launch {
+//            val data = getAllAccounts()
+//
+//            val textview = findViewById<TextView>(R.id.TEXT_MAIN_ACTIVITY)
+//
+//            var str = ""
+//            for(account in data) {
+//                str += account.username
+//            }
+//
+//            textview.text = str
+//        }
+//
     }
-
-    suspend fun getAllAccounts() : List<Account>{
-        val list: List<Account>
-        withContext(Dispatchers.IO) {
-            list = dataSource.getAllAccounts()
-        }
-        return list
-    }
+//
+//    suspend fun getAllAccounts() : List<Account>{
+//        val list: List<Account>
+//        withContext(Dispatchers.IO) {
+//            list = dataSource.getAllAccounts()
+//        }
+//        return list
+//    }
 }
