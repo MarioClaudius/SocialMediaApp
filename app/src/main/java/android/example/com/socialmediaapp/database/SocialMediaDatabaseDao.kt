@@ -15,5 +15,5 @@ interface SocialMediaDatabaseDao {
     suspend fun getAccount(usernameOrEmail: String, password: String): Account
 
     @Query("SELECT * FROM account")
-    suspend fun getAllAccounts() : List<Account>
+    fun getAllAccounts() : LiveData<List<Account>>
 }

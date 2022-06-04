@@ -22,6 +22,7 @@
         android:id="@+id/rv_friend_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        tools:listitem="@layout/list_friend"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/friends_tv"/>
 
