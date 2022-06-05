@@ -7,6 +7,18 @@
     tools:context=".main.home.HomeFragment">
 
     <TextView
+        android:id="@+id/friend_requests_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="Friend Requests 400"
+        android:fontFamily="@font/nexa_bold"
+        android:textColor="@color/black"
+        android:padding="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
         android:id="@+id/friends_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

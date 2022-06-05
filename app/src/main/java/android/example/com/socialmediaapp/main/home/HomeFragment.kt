@@ -52,6 +52,7 @@ class HomeFragment : Fragment() {
         viewModel.friendList.observe(viewLifecycleOwner, Observer {
             it.let {
                 adapter.data = it
+                binding.friendsTv.text = "Friends " + it.size.toString()
             }
         })
         return binding.root

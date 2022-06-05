@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/friend_request_photo"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@drawable/failed_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/friend_request_nickname_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Mario Claudius"
+        android:textSize="20sp"
+        android:fontFamily="@font/nexa_bold"
+        android:textColor="@color/black"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:lines="1"
+        app:layout_constraintStart_toEndOf="@id/friend_request_photo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/accept_button"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/reject_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/failed_logo_no_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/accept_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/success_logo_no_bg"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/reject_button"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

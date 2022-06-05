@@ -30,8 +30,8 @@ class FriendsAdapter: RecyclerView.Adapter<FriendsAdapter.ViewHolder>() {
     override fun getItemCount() = data.size
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        val photo = itemView.findViewById<CircleImageView>(R.id.photo)
-        val nickname = itemView.findViewById<TextView>(R.id.nickname_tv)
+        val photo = itemView.findViewById<CircleImageView>(R.id.friend_photo)
+        val nickname = itemView.findViewById<TextView>(R.id.friend_nickname_tv)
     }
 
 }
