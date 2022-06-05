@@ -45,14 +45,25 @@ class HomeFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
 
         binding.rvFriendList.layoutManager = LinearLayoutManager(activity)
+        binding.rvFriendRequestList.layoutManager = LinearLayoutManager(activity)
 
-        val adapter = FriendsAdapter()
-        binding.rvFriendList.adapter = adapter
+        val friendAdapter = FriendsAdapter()
+        binding.rvFriendList.adapter = friendAdapter
+
+        val friendRequestAdapter = FriendRequestsAdapter()
+        binding.rvFriendRequestList.adapter = friendRequestAdapter
 
         viewModel.friendList.observe(viewLifecycleOwner, Observer {
             it.let {
-                adapter.data = it
+                friendAdapter.data = it
                 binding.friendsTv.text = "Friends " + it.size.toString()
+            }
+        })
+
+        viewModel.friendRequestList.observe(viewLifecycleOwner, Observer {
+            it.let {
+                friendRequestAdapter.data = it
+                binding.friendRequestsTv.text = "Friend Request " + it.size.toString()
             }
         })
         return binding.root

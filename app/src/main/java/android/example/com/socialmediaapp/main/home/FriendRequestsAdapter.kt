@@ -2,9 +2,11 @@ package android.example.com.socialmediaapp.main.home
 
 import android.example.com.socialmediaapp.R
 import android.example.com.socialmediaapp.database.entities.Account
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -21,21 +23,19 @@ class FriendRequestsAdapter: RecyclerView.Adapter<FriendRequestsAdapter.ViewHold
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): FriendRequestsAdapter.ViewHolder {
+    ): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_friend_request, parent, false)
         return FriendRequestsAdapter.ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: FriendRequestsAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
         holder.nickname.text = item.username
-        holder.acceptButton.isClickable = true
-        holder.rejectButton.isClickable = true
         holder.acceptButton.setOnClickListener {
-            Toast.makeText(it.context, "ACCEPTED " + item.username, Toast.LENGTH_SHORT)
+            Log.i("ADAPTER", "ACCEPTED " + item.username)
         }
         holder.rejectButton.setOnClickListener {
-            Toast.makeText(it.context, "REJECTED " + item.username, Toast.LENGTH_SHORT)
+            Log.i("ADAPTER", "REJECTED " + item.username)
         }
     }
 

@@ -16,4 +16,7 @@ interface SocialMediaDatabaseDao {
 
     @Query("SELECT * FROM account")
     fun getAllAccounts() : LiveData<List<Account>>
+
+    @Query("SELECT * FROM account WHERE username = 'test'")
+    fun getFakeAccount() : LiveData<List<Account>>
 }

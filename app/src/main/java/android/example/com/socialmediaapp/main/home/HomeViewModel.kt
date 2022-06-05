@@ -19,4 +19,6 @@ class HomeViewModel(
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     val friendList : LiveData<List<Account>> = database.getAllAccounts()
+
+    val friendRequestList : LiveData<List<Account>> = database.getFakeAccount()
 }
