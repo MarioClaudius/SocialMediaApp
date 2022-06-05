@@ -63,7 +63,15 @@ class HomeFragment : Fragment() {
         viewModel.friendRequestList.observe(viewLifecycleOwner, Observer {
             it.let {
                 friendRequestAdapter.data = it
-                binding.friendRequestsTv.text = "Friend Request " + it.size.toString()
+                if (it.isEmpty()) {
+                    binding.friendRequestsTv.visibility = View.GONE
+                    binding.rvFriendRequestList.visibility = View.GONE
+                }
+                else {
+                    binding.friendRequestsTv.visibility = View.VISIBLE
+                    binding.rvFriendRequestList.visibility = View.VISIBLE
+                    binding.friendRequestsTv.text = "Friend Request " + it.size.toString()
+                }
             }
         })
         return binding.root
