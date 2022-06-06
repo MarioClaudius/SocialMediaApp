@@ -2,13 +2,11 @@ package android.example.com.socialmediaapp.main.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.example.com.socialmediaapp.R
 import android.example.com.socialmediaapp.database.SocialMediaDatabase
 import android.example.com.socialmediaapp.databinding.FragmentHomeBinding
 import android.util.Log
+import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
@@ -34,6 +32,8 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
+
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         val application = requireNotNull(this.activity).application
@@ -77,4 +77,17 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.home_fragment_app_bar_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.action_add_friend -> {
+                Log.i("HOME FRAGMENT", "MENU ADD DITEKEN")
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 }
