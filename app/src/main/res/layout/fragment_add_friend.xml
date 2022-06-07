@@ -34,4 +34,71 @@
         app:layout_constraintTop_toTopOf="@id/friend_search_edt"
         app:layout_constraintBottom_toBottomOf="@id/friend_search_edt"/>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/friend_search_account_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/friend_search_edt"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/friend_search_photo"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/success_logo_no_bg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/friend_search_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Mario Claudius"
+            android:textSize="30sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/nexa_bold"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/friend_search_photo"/>
+
+        <Button
+            android:id="@+id/friend_search_add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ADD"
+            android:backgroundTint="@color/main_green"
+            android:fontFamily="@font/nexa_bold"
+            android:layout_marginTop="55dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/friend_search_nickname"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/account_not_found_detail"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/friend_search_edt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/user_not_found"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User not found"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:fontFamily="@font/nexa_bold"
+            app:layout_constraintStart_toStartOf="@id/account_not_found_detail"
+            app:layout_constraintEnd_toEndOf="@id/account_not_found_detail"
+            app:layout_constraintTop_toTopOf="@id/account_not_found_detail"
+            app:layout_constraintBottom_toBottomOf="@id/account_not_found_detail"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
