@@ -7,6 +7,7 @@ import android.example.com.socialmediaapp.database.entities.Account
 import android.example.com.socialmediaapp.databinding.ActivityMainBinding
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.navigation.findNavController
@@ -55,6 +56,14 @@ class MainActivity : AppCompatActivity() {
 //            textview.text = str
 //        }
 //
+    }
+
+    fun showOrHideBottomNavigationView() {
+        if(binding.bottomNavigationView.visibility == View.VISIBLE) {
+            binding.bottomNavigationView.visibility = View.GONE
+        } else {
+            binding.bottomNavigationView.visibility = View.VISIBLE
+        }
     }
 //
 //    suspend fun getAllAccounts() : List<Account>{

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.example.com.socialmediaapp.R
 import android.example.com.socialmediaapp.database.SocialMediaDatabase
 import android.example.com.socialmediaapp.databinding.FragmentHomeBinding
+import android.example.com.socialmediaapp.main.MainActivity
 import android.util.Log
 import android.view.*
 import androidx.lifecycle.Observer
@@ -87,8 +88,9 @@ class HomeFragment : Fragment() {
         return when(item.itemId) {
             R.id.action_add_friend -> {
                 Log.i("HOME FRAGMENT", "MENU ADD DITEKEN")
+                val activity: MainActivity = activity as MainActivity
+                activity.showOrHideBottomNavigationView()
                 requireView().findNavController().navigate(R.id.action_homeFragment_to_addFriendFragment)
-                requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView).visibility = View.GONE
                 true
             }
             else -> super.onOptionsItemSelected(item)
