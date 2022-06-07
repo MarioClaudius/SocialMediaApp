@@ -7,6 +7,6 @@
         android:icon="@drawable/ic_baseline_person_add_alt_1_24"
         android:title="Add Friend"
         android:iconTint="@color/white"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
 
 </menu>
