@@ -10,7 +10,9 @@ import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -85,9 +87,13 @@ class HomeFragment : Fragment() {
         return when(item.itemId) {
             R.id.action_add_friend -> {
                 Log.i("HOME FRAGMENT", "MENU ADD DITEKEN")
+                requireView().findNavController().navigate(R.id.action_homeFragment_to_addFriendFragment)
+                requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView).visibility = View.GONE
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+
 }

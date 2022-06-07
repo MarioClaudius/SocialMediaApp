@@ -9,12 +9,39 @@
         android:id="@+id/homeFragment"
         android:name="android.example.com.socialmediaapp.main.home.HomeFragment"
         android:label="Home"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_homeFragment_to_addFriendFragment"
+            app:destination="@id/addFriendFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_in_right"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
 
     <fragment
         android:id="@+id/chatFragment"
         android:name="android.example.com.socialmediaapp.main.chat.ChatFragment"
         android:label="Chat"
         tools:layout="@layout/fragment_chat"/>
+
+    <fragment
+        android:id="@+id/addFriendFragment"
+        android:name="android.example.com.socialmediaapp.main.addFriend.AddFriendFragment"
+        android:label="Add Friend"
+        tools:layout="@layout/fragment_add_friend">
+
+        <action
+            android:id="@+id/action_addFriendFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+
+            app:popUpTo="@id/addFriendFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
 
 </navigation>
