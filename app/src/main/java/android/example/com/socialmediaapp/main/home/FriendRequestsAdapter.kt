@@ -1,8 +1,10 @@
 package android.example.com.socialmediaapp.main.home
 
 import android.example.com.socialmediaapp.R
+import android.example.com.socialmediaapp.database.SocialMediaDatabaseDao
 import android.example.com.socialmediaapp.database.entities.Account
 import android.example.com.socialmediaapp.database.entities.Friendship
+import android.example.com.socialmediaapp.database.entities.FriendshipStatus
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +12,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
-class FriendRequestsAdapter: RecyclerView.Adapter<FriendRequestsAdapter.ViewHolder>() {
+class FriendRequestsAdapter(
+    private val database: SocialMediaDatabaseDao
+): RecyclerView.Adapter<FriendRequestsAdapter.ViewHolder>() {
 
     var data = listOf<Friendship>()
         set(value) {
@@ -24,17 +32,35 @@ class FriendRequestsAdapter: RecyclerView.Adapter<FriendRequestsAdapter.ViewHold
         viewType: Int
     ): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_friend_request, parent, false)
-        return FriendRequestsAdapter.ViewHolder(view)
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        var viewModelJob = Job()
+        val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
         val item = data[position]
         holder.nickname.text = item.friend
         holder.acceptButton.setOnClickListener {
             Log.i("ADAPTER", "ACCEPTED " + item.friend)
+            uiScope.launch {
+                val firstFriendship = database.getPendingFriendRequestByUserAndFriend(item.user, item.friend)
+                firstFriendship.status = FriendshipStatus.ACTIVE
+                database.updateFriendRequests(firstFriendship)
+                val secondFriendship = Friendship(user = item.friend, friend = item.user, status = FriendshipStatus.ACTIVE)
+                database.insertActiveFriendRequest(secondFriendship)
+            }
         }
         holder.rejectButton.setOnClickListener {
             Log.i("ADAPTER", "REJECTED " + item.friend)
+            uiScope.launch {
+                database.clearFriendship()
+//                val friendshipList = database.getAllFriendship()
+//                var str = ""
+//                for (friendship in friendshipList) {
+//                    str += friendship.toString() + " SPASI "
+//                }
+//                Log.i("REJECT BUTTON ADAPTER", str)
+            }
         }
     }
 

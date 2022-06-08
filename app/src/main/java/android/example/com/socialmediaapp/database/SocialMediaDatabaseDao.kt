@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 
 @Dao
 interface SocialMediaDatabaseDao {
@@ -17,18 +18,35 @@ interface SocialMediaDatabaseDao {
     suspend fun getAccount(usernameOrEmail: String, password: String): Account
 
     @Query("SELECT * FROM account")
-    fun getAllAccounts() : LiveData<List<Account>>
+    fun getAllAccounts(): LiveData<List<Account>>
 
     @Query("SELECT * FROM account WHERE username = 'test123456'")
-    fun getFakeAccount() : LiveData<List<Account>>
+    fun getFakeAccount(): LiveData<List<Account>>
 
     @Query("SELECT * FROM account WHERE username = :username")
-    suspend fun getAccountByUsername(username: String) : Account
+    suspend fun getAccountByUsername(username: String): Account
 
     @Insert
     suspend fun insertFriendship(friendship: Friendship)
 
     @Query("SELECT * FROM friendship WHERE friend = :username AND status = 'PENDING'")
-    fun getAllFriendRequests(username: String) : LiveData<List<Friendship>>
+    fun getAllFriendRequests(username: String): LiveData<List<Friendship>>
 
+    @Query("SELECT * FROM account LEFT JOIN friendship ON account.username = friendship.friend WHERE friendship.user = :username AND status = 'ACTIVE'")
+    fun getAllFriends(username: String): LiveData<List<Account>>
+
+    @Update
+    suspend fun updateFriendRequests(friendship: Friendship)
+
+    @Query("SELECT * FROM friendship WHERE user = :user AND friend = :friend AND status = 'PENDING'")
+    suspend fun getPendingFriendRequestByUserAndFriend(user: String, friend: String) : Friendship
+
+    @Insert
+    suspend fun insertActiveFriendRequest(friendship: Friendship)
+
+    @Query("SELECT * FROM friendship")
+    suspend fun getAllFriendship() : List<Friendship>
+
+    @Query("DELETE FROM friendship")
+    suspend fun clearFriendship()
 }

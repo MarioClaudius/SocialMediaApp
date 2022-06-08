@@ -20,7 +20,7 @@ class HomeViewModel(
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    val friendList : LiveData<List<Account>> = database.getAllAccounts()
+    val friendList : LiveData<List<Account>> = database.getAllFriends(username)
 
     val friendRequestList : LiveData<List<Friendship>> = database.getAllFriendRequests(username)
 }

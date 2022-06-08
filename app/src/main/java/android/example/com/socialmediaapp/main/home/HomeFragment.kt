@@ -53,7 +53,7 @@ class HomeFragment : Fragment() {
         val friendAdapter = FriendsAdapter()
         binding.rvFriendList.adapter = friendAdapter
 
-        val friendRequestAdapter = FriendRequestsAdapter()
+        val friendRequestAdapter = FriendRequestsAdapter(dataSource)
         binding.rvFriendRequestList.adapter = friendRequestAdapter
 
         viewModel.friendList.observe(viewLifecycleOwner, Observer {
