@@ -11,6 +11,7 @@ import android.example.com.socialmediaapp.database.entities.Friendship
 import android.example.com.socialmediaapp.database.entities.FriendshipStatus
 import android.example.com.socialmediaapp.databinding.FragmentAddFriendBinding
 import android.example.com.socialmediaapp.main.MainActivity
+import android.graphics.Color
 import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.Observer
@@ -44,8 +45,10 @@ class AddFriendFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(AddFriendViewModel::class.java)
 
         binding.searchFriendButton.setOnClickListener {
-            val username = binding.friendSearchEdt.text.toString()
-            viewModel.getAccountByUsername(username)
+            val user = requireActivity().intent.getStringExtra("id")!!
+            val friend = binding.friendSearchEdt.text.toString()
+            viewModel.getAccountByUsername(friend)
+            viewModel.checkAccountFriendRequest(user, friend)       // pas diteken masih blm langsung berubah, tapi pas di-search bisa berubah
         }
 
         binding.friendSearchAddButton.setOnClickListener {
@@ -53,8 +56,21 @@ class AddFriendFragment : Fragment() {
             val friend = viewModel.friendAccount.value!!.username
             val friendship = Friendship(user = username, friend = friend, status = FriendshipStatus.PENDING)
             viewModel.insertFriendship(friendship)
+            viewModel.checkAccountFriendRequest(username, friend)       //blm ngesolve masalahnya
             Log.i("AddFriendFragment", "INSERT BERHASIL")
         }
+
+        viewModel.friendRequestStatus.observe(viewLifecycleOwner, Observer { status ->
+            if (status == FriendshipStatus.PENDING) {
+                binding.friendSearchAddButton.text = "Added"
+                binding.friendSearchAddButton.isEnabled = false
+                binding.friendSearchAddButton.setBackgroundColor(Color.GRAY)
+            } else {
+                binding.friendSearchAddButton.text = "Add"
+                binding.friendSearchAddButton.isEnabled = true
+                binding.friendSearchAddButton.setBackgroundColor(Color.rgb(109, 208, 24))
+            }
+        })
 
         viewModel.friendAccount.observe(viewLifecycleOwner, Observer { friendAccount ->
             if(friendAccount == null) {

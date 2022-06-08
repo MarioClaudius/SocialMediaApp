@@ -44,9 +44,15 @@ interface SocialMediaDatabaseDao {
     @Insert
     suspend fun insertActiveFriendRequest(friendship: Friendship)
 
+    @Insert
+    suspend fun insertRejectedFriendRequest(friendship: Friendship)
+
     @Query("SELECT * FROM friendship")
     suspend fun getAllFriendship() : List<Friendship>
 
     @Query("DELETE FROM friendship")
     suspend fun clearFriendship()
+
+    @Query("SELECT status FROM friendship where user = :user AND friend = :friend ORDER BY id DESC LIMIT 1")
+    suspend fun checkFriendRequest(user: String, friend: String) : FriendshipStatus
 }

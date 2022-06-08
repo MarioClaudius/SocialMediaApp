@@ -41,7 +41,6 @@ class FriendRequestsAdapter(
         val item = data[position]
         holder.nickname.text = item.friend
         holder.acceptButton.setOnClickListener {
-            Log.i("ADAPTER", "ACCEPTED " + item.friend)
             uiScope.launch {
                 val firstFriendship = database.getPendingFriendRequestByUserAndFriend(item.user, item.friend)
                 firstFriendship.status = FriendshipStatus.ACTIVE
@@ -51,15 +50,10 @@ class FriendRequestsAdapter(
             }
         }
         holder.rejectButton.setOnClickListener {
-            Log.i("ADAPTER", "REJECTED " + item.friend)
             uiScope.launch {
-                database.clearFriendship()
-//                val friendshipList = database.getAllFriendship()
-//                var str = ""
-//                for (friendship in friendshipList) {
-//                    str += friendship.toString() + " SPASI "
-//                }
-//                Log.i("REJECT BUTTON ADAPTER", str)
+                val firstFriendship = database.getPendingFriendRequestByUserAndFriend(item.user, item.friend)
+                firstFriendship.status = FriendshipStatus.REJECTED
+                database.updateFriendRequests(firstFriendship)
             }
         }
     }
