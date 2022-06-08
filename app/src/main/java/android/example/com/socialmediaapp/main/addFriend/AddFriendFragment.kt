@@ -48,6 +48,8 @@ class AddFriendFragment : Fragment() {
 
         binding.friendSearchAddButton.setOnClickListener {
             Log.i("AddFriendFragment", viewModel.friendAccount.value!!.username)
+            val username = requireActivity().intent.getStringExtra("id")
+            Log.i("AddFriendFragment_ID", username!!)
         }
 
         viewModel.friendAccount.observe(viewLifecycleOwner, Observer { friendAccount ->

@@ -79,6 +79,7 @@ class LoginFragment : Fragment() {
                 Toast.makeText(context, "LOGIN BERHASIL", Toast.LENGTH_SHORT).show()
                 viewModel.doneToastLoginIsSuccess()
                 val intent = Intent(activity, MainActivity::class.java)
+                intent.putExtra("id", binding.emailEdt.text.toString())         // masih bisa jadi email, blm fix username
                 startActivity(intent)
             }
         })
