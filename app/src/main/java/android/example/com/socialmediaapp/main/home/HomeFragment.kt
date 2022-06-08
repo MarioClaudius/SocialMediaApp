@@ -41,7 +41,9 @@ class HomeFragment : Fragment() {
 
         val dataSource = SocialMediaDatabase.getInstance(application).socialMediaDatabaseDao
 
-        val viewModelFactory = HomeViewModelFactory(application, dataSource)
+        val username = requireActivity().intent.getStringExtra("id")!!
+
+        val viewModelFactory = HomeViewModelFactory(application, dataSource, username)
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
 

@@ -3,6 +3,7 @@ package android.example.com.socialmediaapp.main.addFriend
 import android.app.Application
 import android.example.com.socialmediaapp.database.SocialMediaDatabaseDao
 import android.example.com.socialmediaapp.database.entities.Account
+import android.example.com.socialmediaapp.database.entities.Friendship
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -23,6 +24,12 @@ class AddFriendViewModel(
     fun getAccountByUsername(username: String) {
         uiScope.launch {
             _friendAccount.value = database.getAccountByUsername(username)
+        }
+    }
+
+    fun insertFriendship(friendship: Friendship) {
+        uiScope.launch {
+            database.insertFriendship(friendship)
         }
     }
 }

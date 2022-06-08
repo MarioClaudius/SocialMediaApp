@@ -2,6 +2,7 @@ package android.example.com.socialmediaapp.main.home
 
 import android.example.com.socialmediaapp.R
 import android.example.com.socialmediaapp.database.entities.Account
+import android.example.com.socialmediaapp.database.entities.Friendship
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 
 class FriendRequestsAdapter: RecyclerView.Adapter<FriendRequestsAdapter.ViewHolder>() {
 
-    var data = listOf<Account>()
+    var data = listOf<Friendship>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -28,12 +29,12 @@ class FriendRequestsAdapter: RecyclerView.Adapter<FriendRequestsAdapter.ViewHold
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
-        holder.nickname.text = item.username
+        holder.nickname.text = item.friend
         holder.acceptButton.setOnClickListener {
-            Log.i("ADAPTER", "ACCEPTED " + item.username)
+            Log.i("ADAPTER", "ACCEPTED " + item.friend)
         }
         holder.rejectButton.setOnClickListener {
-            Log.i("ADAPTER", "REJECTED " + item.username)
+            Log.i("ADAPTER", "REJECTED " + item.friend)
         }
     }
 

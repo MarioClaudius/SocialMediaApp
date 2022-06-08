@@ -26,8 +26,9 @@ interface SocialMediaDatabaseDao {
     suspend fun getAccountByUsername(username: String) : Account
 
     @Insert
-    fun insertFriendship(friendship: Friendship)
+    suspend fun insertFriendship(friendship: Friendship)
 
     @Query("SELECT * FROM friendship WHERE friend = :username AND status = 'PENDING'")
     fun getAllFriendRequests(username: String) : LiveData<List<Friendship>>
+
 }

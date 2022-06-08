@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.example.com.socialmediaapp.R
 import android.example.com.socialmediaapp.database.SocialMediaDatabase
+import android.example.com.socialmediaapp.database.entities.Friendship
+import android.example.com.socialmediaapp.database.entities.FriendshipStatus
 import android.example.com.socialmediaapp.databinding.FragmentAddFriendBinding
 import android.example.com.socialmediaapp.main.MainActivity
 import android.util.Log
@@ -47,9 +49,11 @@ class AddFriendFragment : Fragment() {
         }
 
         binding.friendSearchAddButton.setOnClickListener {
-            Log.i("AddFriendFragment", viewModel.friendAccount.value!!.username)
-            val username = requireActivity().intent.getStringExtra("id")
-            Log.i("AddFriendFragment_ID", username!!)
+            val username = requireActivity().intent.getStringExtra("id")!!
+            val friend = viewModel.friendAccount.value!!.username
+            val friendship = Friendship(user = username, friend = friend, status = FriendshipStatus.PENDING)
+            viewModel.insertFriendship(friendship)
+            Log.i("AddFriendFragment", "INSERT BERHASIL")
         }
 
         viewModel.friendAccount.observe(viewLifecycleOwner, Observer { friendAccount ->

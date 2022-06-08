@@ -3,14 +3,13 @@ package android.example.com.socialmediaapp.database.entities
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "friendship")
 data class Friendship(
 
     @PrimaryKey(autoGenerate = true)
-    var id: Long,
+    var id: Long = 0L,
 
     @ColumnInfo(name = "user")
     @NonNull

@@ -3,6 +3,7 @@ package android.example.com.socialmediaapp.main.home
 import android.app.Application
 import android.example.com.socialmediaapp.database.SocialMediaDatabaseDao
 import android.example.com.socialmediaapp.database.entities.Account
+import android.example.com.socialmediaapp.database.entities.Friendship
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.CoroutineScope
@@ -11,7 +12,8 @@ import kotlinx.coroutines.Job
 
 class HomeViewModel(
     private val database: SocialMediaDatabaseDao,
-    application: Application
+    application: Application,
+    username: String
 ) : AndroidViewModel(application) {
 
     private var viewModelJob = Job()
@@ -20,5 +22,5 @@ class HomeViewModel(
 
     val friendList : LiveData<List<Account>> = database.getAllAccounts()
 
-    val friendRequestList : LiveData<List<Account>> = database.getFakeAccount()
+    val friendRequestList : LiveData<List<Friendship>> = database.getAllFriendRequests(username)
 }
