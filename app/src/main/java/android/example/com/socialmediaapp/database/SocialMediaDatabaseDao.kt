@@ -1,6 +1,8 @@
 package android.example.com.socialmediaapp.database
 
 import android.example.com.socialmediaapp.database.entities.Account
+import android.example.com.socialmediaapp.database.entities.Friendship
+import android.example.com.socialmediaapp.database.entities.FriendshipStatus
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
@@ -22,4 +24,10 @@ interface SocialMediaDatabaseDao {
 
     @Query("SELECT * FROM account WHERE username = :username")
     suspend fun getAccountByUsername(username: String) : Account
+
+    @Insert
+    fun insertFriendship(friendship: Friendship)
+
+    @Query("SELECT * FROM friendship WHERE friend = :username AND status = 'PENDING'")
+    fun getAllFriendRequests(username: String) : LiveData<List<Friendship>>
 }
