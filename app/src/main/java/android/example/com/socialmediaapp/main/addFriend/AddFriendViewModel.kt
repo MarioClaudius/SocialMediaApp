@@ -5,6 +5,7 @@ import android.example.com.socialmediaapp.database.SocialMediaDatabaseDao
 import android.example.com.socialmediaapp.database.entities.Account
 import android.example.com.socialmediaapp.database.entities.Friendship
 import android.example.com.socialmediaapp.database.entities.FriendshipStatus
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -25,6 +26,10 @@ class AddFriendViewModel(
     private val _friendRequestStatus = MutableLiveData<FriendshipStatus>()
     val friendRequestStatus : LiveData<FriendshipStatus> = _friendRequestStatus
 
+    init {
+        _friendRequestStatus.value = FriendshipStatus.REJECTED
+    }
+
     fun getAccountByUsername(username: String) {
         uiScope.launch {
             _friendAccount.value = database.getAccountByUsername(username)
@@ -33,8 +38,8 @@ class AddFriendViewModel(
 
     fun checkAccountFriendRequest(user: String, friend: String) {
         uiScope.launch {
+            delay(2L)       // untuk memastikan agar ketika add ditekan, insert sudah selesai sebelum dilakukan check
             _friendRequestStatus.value = database.checkFriendRequest(user, friend)
-//            _friendRequestStatus.value = friendship.status
         }
     }
 

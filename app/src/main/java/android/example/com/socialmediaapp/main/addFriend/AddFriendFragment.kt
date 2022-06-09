@@ -18,6 +18,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.delay
 
 /**
  * A simple [Fragment] subclass.
@@ -48,7 +49,7 @@ class AddFriendFragment : Fragment() {
             val user = requireActivity().intent.getStringExtra("id")!!
             val friend = binding.friendSearchEdt.text.toString()
             viewModel.getAccountByUsername(friend)
-            viewModel.checkAccountFriendRequest(user, friend)       // pas diteken masih blm langsung berubah, tapi pas di-search bisa berubah
+            viewModel.checkAccountFriendRequest(user, friend)
         }
 
         binding.friendSearchAddButton.setOnClickListener {
@@ -56,11 +57,17 @@ class AddFriendFragment : Fragment() {
             val friend = viewModel.friendAccount.value!!.username
             val friendship = Friendship(user = username, friend = friend, status = FriendshipStatus.PENDING)
             viewModel.insertFriendship(friendship)
-            viewModel.checkAccountFriendRequest(username, friend)       //blm ngesolve masalahnya
+            viewModel.checkAccountFriendRequest(username, friend)
             Log.i("AddFriendFragment", "INSERT BERHASIL")
         }
 
         viewModel.friendRequestStatus.observe(viewLifecycleOwner, Observer { status ->
+//            if (status == null) {
+//                Log.i("RequestFriendStatus", "SEKARANG NULL")
+//            }
+//            else {
+//                Log.i("RequestFriendStatus", "SEKARANG " +status.name)
+//            }
             if (status == FriendshipStatus.PENDING) {
                 binding.friendSearchAddButton.text = "Added"
                 binding.friendSearchAddButton.isEnabled = false
