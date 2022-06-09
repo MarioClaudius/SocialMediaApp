@@ -67,16 +67,55 @@ class HomeFragment : Fragment() {
             it.let {
                 friendRequestAdapter.data = it
                 if (it.isEmpty()) {
-                    binding.friendRequestsTv.visibility = View.GONE
+                    binding.friendRequestTitle.visibility = View.GONE
                     binding.rvFriendRequestList.visibility = View.GONE
                 }
                 else {
-                    binding.friendRequestsTv.visibility = View.VISIBLE
+                    binding.friendRequestTitle.visibility = View.VISIBLE
                     binding.rvFriendRequestList.visibility = View.VISIBLE
                     binding.friendRequestsTv.text = "Friend Request " + it.size.toString()
                 }
             }
         })
+
+        viewModel.friendListDropDown.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                binding.rvFriendList.visibility = View.VISIBLE
+            } else {
+                binding.rvFriendList.visibility = View.GONE
+            }
+        })
+
+        viewModel.friendRequestListDropDown.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                binding.rvFriendRequestList.visibility = View.VISIBLE
+            } else {
+                binding.rvFriendRequestList.visibility = View.GONE
+            }
+        })
+
+        binding.arrowFriend.setOnClickListener {
+            viewModel.showOrHideFriendList()
+            if (viewModel.friendListDropDown.value!!) {
+                binding.arrowFriend.setImageResource(R.drawable.ic_baseline_arrow_drop_down_24)
+                binding.rvFriendList.visibility = View.VISIBLE
+            } else {
+                binding.arrowFriend.setImageResource(R.drawable.ic_baseline_arrow_right_24)
+                binding.rvFriendList.visibility = View.GONE
+            }
+        }
+
+        binding.arrowFriendRequest.setOnClickListener {
+            viewModel.showOrHideFriendRequestList()
+            if (viewModel.friendRequestListDropDown.value!!) {
+                binding.arrowFriendRequest.setImageResource(R.drawable.ic_baseline_arrow_drop_down_24)
+                binding.rvFriendRequestList.visibility = View.VISIBLE
+            } else {
+                binding.arrowFriendRequest.setImageResource(R.drawable.ic_baseline_arrow_right_24)
+                binding.rvFriendRequestList.visibility = View.GONE
+            }
+        }
+
         return binding.root
     }
 
