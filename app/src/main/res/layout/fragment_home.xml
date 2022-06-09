@@ -1,49 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".main.home.HomeFragment">
 
-    <TextView
-        android:id="@+id/friend_requests_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:text="Friend Requests 400"
-        android:fontFamily="@font/nexa_bold"
-        android:textColor="@color/black"
-        android:padding="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_friend_request_list"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:listitem="@layout/list_friend_request"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/friend_requests_tv"/>
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/friends_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:text="Friends 400"
-        android:padding="10sp"
-        android:fontFamily="@font/nexa_bold"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rv_friend_request_list"/>
+        <TextView
+            android:id="@+id/friend_requests_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Friend Requests 400"
+            android:fontFamily="@font/nexa_bold"
+            android:textColor="@color/black"
+            android:padding="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_friend_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:listitem="@layout/list_friend"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/friends_tv"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_friend_request_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/list_friend_request"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/friend_requests_tv"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/friends_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Friends 400"
+            android:padding="10sp"
+            android:fontFamily="@font/nexa_bold"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_friend_request_list"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_friend_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/list_friend"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/friends_tv"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--    <TextView-->
+<!--        android:id="@+id/friend_requests_tv"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textSize="15sp"-->
+<!--        android:text="Friend Requests 400"-->
+<!--        android:fontFamily="@font/nexa_bold"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:padding="10dp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"/>-->
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/rv_friend_request_list"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        tools:listitem="@layout/list_friend_request"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/friend_requests_tv"/>-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/friends_tv"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textSize="15sp"-->
+<!--        android:text="Friends 400"-->
+<!--        android:padding="10sp"-->
+<!--        android:fontFamily="@font/nexa_bold"-->
+<!--        android:textColor="@color/black"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/rv_friend_request_list"/>-->
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/rv_friend_list"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        tools:listitem="@layout/list_friend"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/friends_tv"/>-->
+
+</ScrollView>

@@ -39,7 +39,7 @@ class FriendRequestsAdapter(
         var viewModelJob = Job()
         val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
         val item = data[position]
-        holder.nickname.text = item.friend
+        holder.nickname.text = item.user
         holder.acceptButton.setOnClickListener {
             uiScope.launch {
                 val firstFriendship = database.getPendingFriendRequestByUserAndFriend(item.user, item.friend)
