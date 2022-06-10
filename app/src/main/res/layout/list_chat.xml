@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/friend_chat_photo"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@drawable/failed_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/friend_chat_name_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Mario Claudius"
+        android:layout_marginHorizontal="15dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:fontFamily="@font/nexa_bold"
+        app:layout_constraintTop_toTopOf="@id/friend_chat_photo"
+        app:layout_constraintStart_toEndOf="@id/friend_chat_photo"
+        app:layout_constraintBottom_toTopOf="@id/friend_chat_content_tv"
+        app:layout_constraintEnd_toStartOf="@id/friend_chat_timestamp_tv"/>
+
+    <TextView
+        android:id="@+id/friend_chat_content_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:layout_marginHorizontal="15dp"
+        android:fontFamily="@font/nexa_light"
+        android:textColor="@color/black"
+        tools:text="asdasdasdasdsdsdasadsasdads"
+        app:layout_constraintTop_toBottomOf="@id/friend_chat_name_tv"
+        app:layout_constraintStart_toEndOf="@id/friend_chat_photo"
+        app:layout_constraintBottom_toBottomOf="@id/friend_chat_photo"
+        app:layout_constraintEnd_toStartOf="@id/friend_chat_timestamp_tv"/>
+
+    <TextView
+        android:id="@+id/friend_chat_timestamp_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="9:32 PM"
+        android:fontFamily="@font/nexa_light"
+        android:textColor="@color/black"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
