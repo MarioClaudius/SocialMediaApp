@@ -1,5 +1,6 @@
 package android.example.com.socialmediaapp.start.register
 
+import android.example.com.socialmediaapp.R
 import android.example.com.socialmediaapp.databinding.FragmentRegisterDialogBinding
 import android.graphics.Color
 import android.os.Bundle
@@ -36,7 +37,7 @@ class RegisterDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentRegisterDialogBinding.inflate(layoutInflater, container, false)
+        binding = FragmentRegisterDialogBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -63,6 +64,7 @@ class RegisterDialog : DialogFragment() {
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.WRAP_CONTENT
         )
+
     }
 
 }

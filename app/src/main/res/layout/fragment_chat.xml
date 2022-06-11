@@ -14,6 +14,7 @@
             android:id="@+id/rv_chat_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            tools:listitem="@layout/list_chat"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
 
