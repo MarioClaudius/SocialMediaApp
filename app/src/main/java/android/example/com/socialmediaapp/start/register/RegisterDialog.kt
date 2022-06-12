@@ -1,6 +1,5 @@
 package android.example.com.socialmediaapp.start.register
 
-import android.example.com.socialmediaapp.R
 import android.example.com.socialmediaapp.databinding.FragmentRegisterDialogBinding
 import android.graphics.Color
 import android.os.Bundle
@@ -61,10 +60,9 @@ class RegisterDialog : DialogFragment() {
     override fun onStart() {
         super.onStart()
         dialog?.window?.setLayout(
-            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT,
             WindowManager.LayoutParams.WRAP_CONTENT
         )
-
     }
 
 }

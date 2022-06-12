@@ -5,11 +5,15 @@ import android.example.com.socialmediaapp.database.entities.Account
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import de.hdodenhof.circleimageview.CircleImageView
 
-class FriendsAdapter: RecyclerView.Adapter<FriendsAdapter.ViewHolder>() {
+
+class FriendsAdapter(): RecyclerView.Adapter<FriendsAdapter.ViewHolder>() {
 
     var data = listOf<Account>()
         set(value) {
@@ -24,12 +28,17 @@ class FriendsAdapter: RecyclerView.Adapter<FriendsAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
+        val manager = (holder.nickname.context as AppCompatActivity).supportFragmentManager
         holder.nickname.text = item.username
+        holder.layout.setOnClickListener {
+            FriendDetailDialog.newInstance(R.drawable.failed_logo, item.username).show(manager, FriendDetailDialog.TAG)
+        }
     }
 
     override fun getItemCount() = data.size
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+        val layout = itemView.findViewById<ConstraintLayout>(R.id.friend_detail_layout)
         val photo = itemView.findViewById<CircleImageView>(R.id.friend_photo)
         val nickname = itemView.findViewById<TextView>(R.id.friend_nickname_tv)
     }
