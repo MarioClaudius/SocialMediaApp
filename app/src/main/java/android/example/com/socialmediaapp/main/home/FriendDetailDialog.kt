@@ -1,17 +1,19 @@
 package android.example.com.socialmediaapp.main.home
 
-import android.example.com.socialmediaapp.databinding.FragmentRegisterDialogBinding
+import android.example.com.socialmediaapp.R
+import android.example.com.socialmediaapp.database.SocialMediaDatabaseDao
 import android.example.com.socialmediaapp.databinding.FriendDetailDialogBinding
-import android.example.com.socialmediaapp.start.register.RegisterDialog
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 
-class FriendDetailDialog : DialogFragment() {
+class FriendDetailDialog() : DialogFragment() {
     private lateinit var binding: FriendDetailDialogBinding
 
     companion object {
@@ -45,6 +47,7 @@ class FriendDetailDialog : DialogFragment() {
         binding.friendDetailNickname.text = arguments?.getString(FriendDetailDialog.KEY_NICKNAME)
         binding.friendDetailChatButton.setOnClickListener {
             dismiss()       // ditambahin navigation ke fragment chat
+            findNavController().navigate(R.id.action_homeFragment_to_chatroomFragment)
         }
     }
 

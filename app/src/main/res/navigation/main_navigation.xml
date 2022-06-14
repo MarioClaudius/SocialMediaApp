@@ -20,6 +20,16 @@
             app:popExitAnim="@anim/slide_in_right"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true"/>
+
+        <action
+            android:id="@+id/action_homeFragment_to_chatroomFragment"
+            app:destination="@id/chatroomFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_in_right"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
 
     <fragment
@@ -41,6 +51,14 @@
             app:exitAnim="@anim/fade_out"
             app:popUpTo="@id/addFriendFragment"
             app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/chatroomFragment"
+        android:name="android.example.com.socialmediaapp.main.chatroom.ChatRoomFragment"
+        android:label="Chat Room"
+        tools:layout="@layout/fragment_chat_room">
+
     </fragment>
 
 </navigation>
