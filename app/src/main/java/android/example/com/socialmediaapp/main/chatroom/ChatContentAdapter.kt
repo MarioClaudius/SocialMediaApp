@@ -2,6 +2,7 @@ package android.example.com.socialmediaapp.main.chatroom
 
 import android.example.com.socialmediaapp.R
 import android.example.com.socialmediaapp.database.entities.Chat
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -24,11 +25,22 @@ class ChatContentAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        TODO("Not yet implemented")
+        return if (viewType == VIEW_TYPE_MESSAGE_SENT) {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.self_chat_bubble_layout, parent, false)
+            SentMessageHolder(view)
+        } else { // viewType == VIEW_TYPE_MESSAGE_RECEIVED
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.other_chat_bubble_layout, parent, false)
+            ReceivedMessageHolder(view)
+        }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val chat = data.get(position)
+
+        when(holder.itemViewType) {
+            VIEW_TYPE_MESSAGE_SENT -> (holder as SentMessageHolder).bind(chat)
+            VIEW_TYPE_MESSAGE_RECEIVED -> (holder as ReceivedMessageHolder).bind(chat)
+        }
     }
 
     override fun getItemCount() = data.size
