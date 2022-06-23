@@ -16,7 +16,7 @@ data class Chat(
 
     @ColumnInfo(name = "chat")
     @NonNull
-    var chat: String,
+    var content: String,
 
     @ColumnInfo(name = "timestamp")
     @NonNull
