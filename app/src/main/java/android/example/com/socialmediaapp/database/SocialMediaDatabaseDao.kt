@@ -1,6 +1,7 @@
 package android.example.com.socialmediaapp.database
 
 import android.example.com.socialmediaapp.database.entities.Account
+import android.example.com.socialmediaapp.database.entities.Chat
 import android.example.com.socialmediaapp.database.entities.Friendship
 import android.example.com.socialmediaapp.database.entities.FriendshipStatus
 import androidx.lifecycle.LiveData
@@ -55,4 +56,13 @@ interface SocialMediaDatabaseDao {
 
     @Query("SELECT status FROM friendship where user = :user AND friend = :friend ORDER BY id DESC LIMIT 1")
     suspend fun checkFriendRequest(user: String, friend: String) : FriendshipStatus
+
+    @Query("SELECT * FROM chat INNER JOIN chatroom ON chat.room_id = chatroom.id WHERE room_id = :roomId ORDER BY timestamp")
+    fun getAllChatContentByRoomId(roomId : Long) : LiveData<List<Chat>>
+
+    @Query("SELECT id FROM chatroom WHERE (user1 = :user1 AND user2 = :user2) OR (user1 = :user2 AND user2 = :user1) LIMIT 1")
+    suspend fun getChatRoomId(user1: String, user2: String)
+
+    @Query("SELECT * FROM chatroom WHERE user1 = :user OR user2 = :user")
+    suspend fun getChatRoomByUser(user: String)
 }

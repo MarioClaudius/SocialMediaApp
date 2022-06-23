@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.example.com.socialmediaapp.R
 import android.example.com.socialmediaapp.database.SocialMediaDatabase
 import android.example.com.socialmediaapp.databinding.FragmentChatRoomBinding
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 
@@ -28,11 +29,20 @@ class ChatRoomFragment : Fragment() {
 
         val dataSource = SocialMediaDatabase.getInstance(application).socialMediaDatabaseDao
 
-        val viewModelFactory = ChatRoomViewModelFactory(application, dataSource)
+        val viewModelFactory = ChatRoomViewModelFactory(application, dataSource, 1L, "dummyuser")
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(ChatRoomViewModel::class.java)
 
         binding.rvChatList.layoutManager = LinearLayoutManager(activity)
+
+        val chatContentAdapter = ChatContentAdapter()
+        binding.rvChatList.adapter = chatContentAdapter
+
+        viewModel.chatContentList.observe(viewLifecycleOwner, Observer {
+            it.let {
+                chatContentAdapter.data = it
+            }
+        })
 
         return binding.root
     }
