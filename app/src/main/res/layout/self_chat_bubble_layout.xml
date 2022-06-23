@@ -7,7 +7,7 @@
     android:layout_marginTop="16dp">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/chat_bubble_cardview"
+        android:id="@+id/self_chat_bubble_cardview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/main_green"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/text_chat_bubble"
+            android:id="@+id/text_self_chat_bubble"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxWidth="260dp"
@@ -27,19 +27,19 @@
             android:paddingVertical="8dp"
             android:textSize="16sp"
             android:textColor="@color/white"
-            android:text="This is a message"
+            android:text="This is a message asdasaddadasdaasaada"
             android:fontFamily="@font/nexa_bold"/>
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/text_timestamp"
+        android:id="@+id/text_self_timestamp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="10:00"
         android:textColor="#C0C0C0"
         android:fontFamily="@font/nexa_bold"
         android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="@+id/chat_bubble_cardview"
-        app:layout_constraintEnd_toStartOf="@id/chat_bubble_cardview"/>
+        app:layout_constraintBottom_toBottomOf="@+id/self_chat_bubble_cardview"
+        app:layout_constraintEnd_toStartOf="@id/self_chat_bubble_cardview"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
