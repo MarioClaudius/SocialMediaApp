@@ -20,11 +20,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.delay
 
-/**
- * A simple [Fragment] subclass.
- * Use the [AddFriendFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AddFriendFragment : Fragment() {
 
     private lateinit var binding: FragmentAddFriendBinding
