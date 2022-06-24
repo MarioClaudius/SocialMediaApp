@@ -5,18 +5,36 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.example.com.socialmediaapp.R
+import android.example.com.socialmediaapp.database.SocialMediaDatabase
 import android.example.com.socialmediaapp.databinding.FragmentChatBinding
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 
 class ChatFragment : Fragment() {
 
     private lateinit var binding: FragmentChatBinding
 
+    private lateinit var viewModel: ChatViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chat, container, false)
+
+        binding = FragmentChatBinding.inflate(inflater, container, false)
+
+        val application = requireNotNull(this.activity).application
+
+        val dataSource = SocialMediaDatabase.getInstance(application).socialMediaDatabaseDao
+
+        val user = requireActivity().intent.getStringExtra("id")!!
+
+        val viewModelFactory = ChatViewModelFactory(application, dataSource, user)
+
+        viewModel = ViewModelProvider(this, viewModelFactory).get(ChatViewModel::class.java)
+
+        binding.rvChatroomList.layoutManager = LinearLayoutManager(activity)
+
+        return binding.root
     }
 }

@@ -9,7 +9,8 @@ import kotlinx.coroutines.Job
 
 class ChatViewModel(
     private val database: SocialMediaDatabaseDao,
-    application: Application
+    application: Application,
+    user: String
 ) : AndroidViewModel(application) {
     private var viewModelJob = Job()
 

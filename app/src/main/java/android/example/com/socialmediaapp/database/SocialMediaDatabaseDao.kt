@@ -65,4 +65,7 @@ interface SocialMediaDatabaseDao {
 
     @Query("SELECT * FROM chatroom WHERE user1 = :user OR user2 = :user")
     suspend fun getChatRoomByUser(user: String)
+
+    @Query("SELECT * FROM chat WHERE room_id = :roomId ORDER BY timestamp DESC LIMIT 1")
+    suspend fun getLastChatByChatRoom(roomId: Long) : Chat
 }
