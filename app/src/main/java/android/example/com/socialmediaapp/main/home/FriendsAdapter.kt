@@ -1,6 +1,7 @@
 package android.example.com.socialmediaapp.main.home
 
 import android.example.com.socialmediaapp.R
+import android.example.com.socialmediaapp.database.SocialMediaDatabaseDao
 import android.example.com.socialmediaapp.database.entities.Account
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +14,10 @@ import androidx.recyclerview.widget.RecyclerView
 import de.hdodenhof.circleimageview.CircleImageView
 
 
-class FriendsAdapter(): RecyclerView.Adapter<FriendsAdapter.ViewHolder>() {
+class FriendsAdapter(
+    private val database: SocialMediaDatabaseDao,
+    private val user1: String
+): RecyclerView.Adapter<FriendsAdapter.ViewHolder>() {
 
     var data = listOf<Account>()
         set(value) {
@@ -31,7 +35,7 @@ class FriendsAdapter(): RecyclerView.Adapter<FriendsAdapter.ViewHolder>() {
         val manager = (holder.nickname.context as AppCompatActivity).supportFragmentManager
         holder.nickname.text = item.username
         holder.layout.setOnClickListener {
-            FriendDetailDialog.newInstance(R.drawable.failed_logo, item.username).show(manager, FriendDetailDialog.TAG)
+            FriendDetailDialog.newInstance(R.drawable.failed_logo, user1, item.username, database).show(manager, FriendDetailDialog.TAG)
         }
     }
 

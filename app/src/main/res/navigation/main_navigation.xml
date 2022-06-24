@@ -58,7 +58,12 @@
         android:name="android.example.com.socialmediaapp.main.chatroom.ChatRoomFragment"
         android:label="Chat Room"
         tools:layout="@layout/fragment_chat_room">
-
+        <argument
+            android:name="roomId"
+            app:argType="long" />
+        <argument
+            android:name="user1"
+            app:argType="string" />
     </fragment>
 
 </navigation>

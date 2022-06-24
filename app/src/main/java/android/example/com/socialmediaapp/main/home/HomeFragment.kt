@@ -13,16 +13,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
@@ -50,7 +40,7 @@ class HomeFragment : Fragment() {
         binding.rvFriendList.layoutManager = LinearLayoutManager(activity)
         binding.rvFriendRequestList.layoutManager = LinearLayoutManager(activity)
 
-        val friendAdapter = FriendsAdapter()
+        val friendAdapter = FriendsAdapter(dataSource, username)
         binding.rvFriendList.adapter = friendAdapter
 
         val friendRequestAdapter = FriendRequestsAdapter(dataSource)

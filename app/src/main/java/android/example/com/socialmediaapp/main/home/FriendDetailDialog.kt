@@ -2,6 +2,7 @@ package android.example.com.socialmediaapp.main.home
 
 import android.example.com.socialmediaapp.R
 import android.example.com.socialmediaapp.database.SocialMediaDatabaseDao
+import android.example.com.socialmediaapp.database.entities.ChatRoom
 import android.example.com.socialmediaapp.databinding.FriendDetailDialogBinding
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,8 +13,15 @@ import androidx.fragment.app.DialogFragment
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
-class FriendDetailDialog() : DialogFragment() {
+class FriendDetailDialog(
+    private val database: SocialMediaDatabaseDao,
+    private val user1: String
+) : DialogFragment() {
     private lateinit var binding: FriendDetailDialogBinding
 
     companion object {
@@ -22,11 +30,11 @@ class FriendDetailDialog() : DialogFragment() {
         private const val KEY_PHOTO_IMAGE = "KEY_PHOTO_IMAGE"
         private const val KEY_NICKNAME = "KEY_NICKNAME"
 
-        fun newInstance(photo: Int, nickname: String): FriendDetailDialog {
+        fun newInstance(photo: Int, user1: String, nickname: String, database: SocialMediaDatabaseDao): FriendDetailDialog {
             val args = Bundle()
             args.putInt(KEY_PHOTO_IMAGE, photo)
             args.putString(KEY_NICKNAME, nickname)
-            val fragment = FriendDetailDialog()
+            val fragment = FriendDetailDialog(database, user1)
             fragment.arguments = args
             return fragment
         }
@@ -43,11 +51,19 @@ class FriendDetailDialog() : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.friendDetailPhoto.setImageResource(arguments?.getInt(FriendDetailDialog.KEY_PHOTO_IMAGE)!!)
-        binding.friendDetailNickname.text = arguments?.getString(FriendDetailDialog.KEY_NICKNAME)
+        val friendName = arguments?.getString(KEY_NICKNAME)!!
+        binding.friendDetailPhoto.setImageResource(arguments?.getInt(KEY_PHOTO_IMAGE)!!)
+        binding.friendDetailNickname.text = friendName
         binding.friendDetailChatButton.setOnClickListener {
+            var viewModelJob = Job()
+            val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+            val chatroom = ChatRoom(user1 = user1, user2 = friendName)
+            uiScope.launch {
+                database.insertChatRoom(chatroom)
+            }
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToChatroomFragment(chatroom.id, user1))
+//            findNavController().navigate(R.id.action_homeFragment_to_chatroomFragment)
             dismiss()       // ditambahin navigation ke fragment chat
-            findNavController().navigate(R.id.action_homeFragment_to_chatroomFragment)
         }
     }
 

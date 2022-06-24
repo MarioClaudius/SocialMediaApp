@@ -29,7 +29,9 @@ class ChatRoomFragment : Fragment() {
 
         val dataSource = SocialMediaDatabase.getInstance(application).socialMediaDatabaseDao
 
-        val viewModelFactory = ChatRoomViewModelFactory(application, dataSource, 1L, "dummyuser")
+        val args = ChatRoomFragmentArgs.fromBundle(requireArguments())
+
+        val viewModelFactory = ChatRoomViewModelFactory(application, dataSource, args.roomId, args.user1)
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(ChatRoomViewModel::class.java)
 
