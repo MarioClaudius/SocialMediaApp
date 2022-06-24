@@ -58,7 +58,7 @@ interface SocialMediaDatabaseDao {
     fun getAllChatContentByRoomId(roomId : Long) : LiveData<List<Chat>>
 
     @Query("SELECT * FROM chatroom WHERE (user1 = :user1 AND user2 = :user2) OR (user1 = :user2 AND user2 = :user1) LIMIT 1")
-    suspend fun getChatRoomId(user1: String, user2: String) : ChatRoom
+    suspend fun getChatRoomByUserAndFriend(user1: String, user2: String) : ChatRoom
 
     @Query("SELECT * FROM chatroom WHERE user1 = :user OR user2 = :user")
     fun getChatRoomByUser(user: String) : LiveData<List<ChatRoom>>

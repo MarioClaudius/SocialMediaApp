@@ -5,22 +5,22 @@ import android.example.com.socialmediaapp.database.SocialMediaDatabaseDao
 import android.example.com.socialmediaapp.database.entities.ChatRoom
 import android.example.com.socialmediaapp.databinding.FriendDetailDialogBinding
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class FriendDetailDialog(
     private val database: SocialMediaDatabaseDao,
-    private val user1: String
+    private val user1: String,
+    private val listener: HomeFragment
 ) : DialogFragment() {
     private lateinit var binding: FriendDetailDialogBinding
 
@@ -30,11 +30,11 @@ class FriendDetailDialog(
         private const val KEY_PHOTO_IMAGE = "KEY_PHOTO_IMAGE"
         private const val KEY_NICKNAME = "KEY_NICKNAME"
 
-        fun newInstance(photo: Int, user1: String, nickname: String, database: SocialMediaDatabaseDao): FriendDetailDialog {
+        fun newInstance(photo: Int, user1: String, nickname: String, database: SocialMediaDatabaseDao, listener: HomeFragment): FriendDetailDialog {
             val args = Bundle()
             args.putInt(KEY_PHOTO_IMAGE, photo)
             args.putString(KEY_NICKNAME, nickname)
-            val fragment = FriendDetailDialog(database, user1)
+            val fragment = FriendDetailDialog(database, user1, listener)
             fragment.arguments = args
             return fragment
         }
@@ -57,12 +57,21 @@ class FriendDetailDialog(
         binding.friendDetailChatButton.setOnClickListener {
             var viewModelJob = Job()
             val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-            val chatroom = ChatRoom(user1 = user1, user2 = friendName)
+            var chatroom: ChatRoom
             uiScope.launch {
-                database.insertChatRoom(chatroom)
+                withContext(Dispatchers.IO) {
+                    if (database.getChatRoomByUserAndFriend(user1, friendName) == null) {
+                        val room = ChatRoom(user1 = user1, user2 = friendName)
+                        database.insertChatRoom(room)
+                    }
+                    chatroom = database.getChatRoomByUserAndFriend(user1, friendName)
+                    Log.i("CHATROOM", "RoomId = ${chatroom.id}, user1 = ${chatroom.user1}, user2 = ${chatroom.user2}")
+
+                    withContext(Dispatchers.Main) {
+                        listener.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToChatroomFragment(chatroom.id, user1))
+                    }
+                }
             }
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToChatroomFragment(chatroom.id, user1))
-//            findNavController().navigate(R.id.action_homeFragment_to_chatroomFragment)
             dismiss()       // ditambahin navigation ke fragment chat
         }
     }

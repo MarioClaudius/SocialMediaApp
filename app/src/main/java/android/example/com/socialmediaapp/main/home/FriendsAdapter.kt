@@ -16,7 +16,8 @@ import de.hdodenhof.circleimageview.CircleImageView
 
 class FriendsAdapter(
     private val database: SocialMediaDatabaseDao,
-    private val user1: String
+    private val user1: String,
+    private val listener: HomeFragment
 ): RecyclerView.Adapter<FriendsAdapter.ViewHolder>() {
 
     var data = listOf<Account>()
@@ -35,7 +36,7 @@ class FriendsAdapter(
         val manager = (holder.nickname.context as AppCompatActivity).supportFragmentManager
         holder.nickname.text = item.username
         holder.layout.setOnClickListener {
-            FriendDetailDialog.newInstance(R.drawable.failed_logo, user1, item.username, database).show(manager, FriendDetailDialog.TAG)
+            FriendDetailDialog.newInstance(R.drawable.failed_logo, user1, item.username, database, listener).show(manager, FriendDetailDialog.TAG)
         }
     }
 

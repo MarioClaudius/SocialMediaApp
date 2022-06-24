@@ -38,7 +38,7 @@ class AddFriendViewModel(
 
     fun checkAccountFriendRequest(user: String, friend: String) {
         uiScope.launch {
-            delay(2L)       // untuk memastikan agar ketika add ditekan, insert sudah selesai sebelum dilakukan check
+            delay(10L)       // untuk memastikan agar ketika add ditekan, insert sudah selesai sebelum dilakukan check
             _friendRequestStatus.value = database.checkFriendRequest(user, friend)
         }
     }

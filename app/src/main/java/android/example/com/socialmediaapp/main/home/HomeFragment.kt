@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
         binding.rvFriendList.layoutManager = LinearLayoutManager(activity)
         binding.rvFriendRequestList.layoutManager = LinearLayoutManager(activity)
 
-        val friendAdapter = FriendsAdapter(dataSource, username)
+        val friendAdapter = FriendsAdapter(dataSource, username, this@HomeFragment)
         binding.rvFriendList.adapter = friendAdapter
 
         val friendRequestAdapter = FriendRequestsAdapter(dataSource)
