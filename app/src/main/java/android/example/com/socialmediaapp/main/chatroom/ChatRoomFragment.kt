@@ -41,7 +41,7 @@ class ChatRoomFragment : Fragment() {
 
         binding.rvChatList.layoutManager = LinearLayoutManager(activity)
 
-        val chatContentAdapter = ChatContentAdapter(args.user1)
+        val chatContentAdapter = ChatContentAdapter(dataSource, args.user1)
         binding.rvChatList.adapter = chatContentAdapter
 
         viewModel.chatContentList.observe(viewLifecycleOwner, Observer {

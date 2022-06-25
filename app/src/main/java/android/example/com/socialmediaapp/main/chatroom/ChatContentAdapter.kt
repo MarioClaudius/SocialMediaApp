@@ -1,6 +1,7 @@
 package android.example.com.socialmediaapp.main.chatroom
 
 import android.example.com.socialmediaapp.R
+import android.example.com.socialmediaapp.database.SocialMediaDatabaseDao
 import android.example.com.socialmediaapp.database.entities.Chat
 import android.view.LayoutInflater
 import android.view.View
@@ -8,10 +9,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
 class ChatContentAdapter(
+    val database: SocialMediaDatabaseDao,
     private val sender: String
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -57,7 +63,7 @@ class ChatContentAdapter(
         }
     }
 
-    private class SentMessageHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    private inner class SentMessageHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val messageTextSent = itemView.findViewById<TextView>(R.id.text_self_chat_bubble)
         val timestampText = itemView.findViewById<TextView>(R.id.text_self_timestamp)
 
@@ -71,13 +77,21 @@ class ChatContentAdapter(
         }
     }
 
-    private class ReceivedMessageHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    private inner class ReceivedMessageHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val messageTextReceived = itemView.findViewById<TextView>(R.id.text_other_chat_bubble)
         val profileNameText = itemView.findViewById<TextView>(R.id.text_profile_name_other)
         val profilePhoto = itemView.findViewById<CircleImageView>(R.id.image_profile_other)
         val timestampText = itemView.findViewById<TextView>(R.id.text_other_timestamp)
 
         fun bind(chat: Chat) {
+            var viewModelJob = Job()
+            val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
+            uiScope.launch {
+                val receiver = database.getAccountByUsername(chat.userId)
+                profilePhoto.setImageBitmap(receiver.imageProfile)
+            }
+
             messageTextReceived.text = chat.content
             profileNameText.text = chat.userId
             profilePhoto.setImageResource(R.drawable.failed_logo_no_bg)     // still static

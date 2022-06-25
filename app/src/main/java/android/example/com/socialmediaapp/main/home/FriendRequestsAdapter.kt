@@ -40,6 +40,12 @@ class FriendRequestsAdapter(
         val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
         val item = data[position]
         holder.nickname.text = item.user
+
+        uiScope.launch {
+            val friend = database.getAccountByUsername(item.user)
+            holder.photo.setImageBitmap(friend.imageProfile)
+        }
+
         holder.acceptButton.setOnClickListener {
             uiScope.launch {
                 val firstFriendship = database.getPendingFriendRequestByUserAndFriend(item.user, item.friend)

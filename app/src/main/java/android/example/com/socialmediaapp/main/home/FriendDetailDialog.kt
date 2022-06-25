@@ -52,12 +52,18 @@ class FriendDetailDialog(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        var viewModelJob = Job()
+        val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
         val friendName = arguments?.getString(KEY_NICKNAME)!!
         binding.friendDetailPhoto.setImageResource(arguments?.getInt(KEY_PHOTO_IMAGE)!!)
         binding.friendDetailNickname.text = friendName
+
+        uiScope.launch {
+            val friend = database.getAccountByUsername(friendName)
+            binding.friendDetailPhoto.setImageBitmap(friend.imageProfile)
+        }
+
         binding.friendDetailChatButton.setOnClickListener {
-            var viewModelJob = Job()
-            val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
             var chatroom: ChatRoom
             uiScope.launch {
                 withContext(Dispatchers.IO) {

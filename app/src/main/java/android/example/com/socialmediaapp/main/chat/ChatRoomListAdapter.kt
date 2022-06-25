@@ -41,8 +41,16 @@ class ChatRoomListAdapter(
         val chatroom = data.get(position)
         if (chatroom.user1.equals(user)) {
             holder.nameTv.text = chatroom.user2
+            uiScope.launch {
+                val user2 = database.getAccountByUsername(chatroom.user2)
+                holder.photo.setImageBitmap(user2.imageProfile)
+            }
         } else {
             holder.nameTv.text = chatroom.user1
+            uiScope.launch {
+                val user1 = database.getAccountByUsername(chatroom.user1)
+                holder.photo.setImageBitmap(user1.imageProfile)
+            }
         }
 
         uiScope.launch {

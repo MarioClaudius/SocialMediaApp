@@ -12,6 +12,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 
 class FriendsAdapter(
@@ -32,9 +36,17 @@ class FriendsAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        var viewModelJob = Job()
+        val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
         val item = data[position]
         val manager = (holder.nickname.context as AppCompatActivity).supportFragmentManager
         holder.nickname.text = item.username
+
+        uiScope.launch {
+            val friend = database.getAccountByUsername(item.username)
+            holder.photo.setImageBitmap(friend.imageProfile)
+        }
+
         holder.layout.setOnClickListener {
             FriendDetailDialog.newInstance(R.drawable.failed_logo, user1, item.username, database, listener).show(manager, FriendDetailDialog.TAG)
         }
