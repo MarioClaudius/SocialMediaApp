@@ -4,6 +4,7 @@ import android.example.com.socialmediaapp.R
 import android.example.com.socialmediaapp.database.SocialMediaDatabaseDao
 import android.example.com.socialmediaapp.database.entities.ChatRoom
 import android.example.com.socialmediaapp.databinding.FriendDetailDialogBinding
+import android.example.com.socialmediaapp.main.MainActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -68,7 +69,9 @@ class FriendDetailDialog(
                     Log.i("CHATROOM", "RoomId = ${chatroom.id}, user1 = ${chatroom.user1}, user2 = ${chatroom.user2}")
 
                     withContext(Dispatchers.Main) {
+                        val activity: MainActivity = listener.activity as MainActivity
                         listener.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToChatroomFragment(chatroom.id, user1))
+                        activity.showOrHideBottomNavigationView()
                     }
                 }
             }

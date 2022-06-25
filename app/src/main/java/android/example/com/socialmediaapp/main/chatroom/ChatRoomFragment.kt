@@ -8,9 +8,12 @@ import android.view.ViewGroup
 import android.example.com.socialmediaapp.R
 import android.example.com.socialmediaapp.database.SocialMediaDatabase
 import android.example.com.socialmediaapp.databinding.FragmentChatRoomBinding
+import android.example.com.socialmediaapp.main.MainActivity
 import android.util.Log
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 
 class ChatRoomFragment : Fragment() {
@@ -32,8 +35,6 @@ class ChatRoomFragment : Fragment() {
 
         val args = ChatRoomFragmentArgs.fromBundle(requireArguments())
 
-        Log.i("CHATROOMFRAGMENT", "${args.toBundle().getLong("roomId")}")
-
         val viewModelFactory = ChatRoomViewModelFactory(application, dataSource, args.roomId, args.user1)
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(ChatRoomViewModel::class.java)
@@ -54,6 +55,14 @@ class ChatRoomFragment : Fragment() {
             viewModel.sendChat(chatContent)
             binding.edittextChat.text.clear()
         }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val activity = activity as MainActivity
+                activity.showOrHideBottomNavigationView()
+                findNavController().navigate(R.id.action_chatroomFragment_to_homeFragment)
+            }
+        })
 
         return binding.root
     }
