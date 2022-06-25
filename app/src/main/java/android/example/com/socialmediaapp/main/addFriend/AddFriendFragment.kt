@@ -82,6 +82,7 @@ class AddFriendFragment : Fragment() {
                 binding.friendSearchNickname.text = friendAccount.username
                 binding.accountNotFoundDetail.visibility = View.GONE
                 binding.friendSearchAccountDetail.visibility = View.VISIBLE
+                binding.friendSearchPhoto.setImageBitmap(friendAccount.imageProfile)
             }
         })
 

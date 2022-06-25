@@ -1,5 +1,6 @@
 package android.example.com.socialmediaapp.database.entities
 
+import android.graphics.Bitmap
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -19,5 +20,9 @@ data class Account(
 
     @ColumnInfo(name = "password")
     @NonNull
-    var password: String
+    var password: String,
+
+    @ColumnInfo(name = "photo")
+    @NonNull
+    var imageProfile: Bitmap
 )

@@ -7,8 +7,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
-@Database(entities = [Account::class, Friendship::class, Chat::class, ChatRoom::class], version = 3, exportSchema = false)
-@TypeConverters(FriendshipStatusConverter::class)
+@Database(entities = [Account::class, Friendship::class, Chat::class, ChatRoom::class], version = 4, exportSchema = false)
+@TypeConverters(FriendshipStatusConverter::class, ImageBitmapConverter::class)
 abstract class SocialMediaDatabase: RoomDatabase() {
     abstract val socialMediaDatabaseDao: SocialMediaDatabaseDao
 
