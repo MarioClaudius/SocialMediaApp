@@ -11,7 +11,9 @@ import de.hdodenhof.circleimageview.CircleImageView
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ChatContentAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ChatContentAdapter(
+    private val sender: String
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val VIEW_TYPE_MESSAGE_SENT = 1;
@@ -48,7 +50,7 @@ class ChatContentAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemViewType(position: Int): Int {
         val chat = data.get(position)
 
-        if (chat.userId.equals("ID SENDER")) {
+        if (chat.userId.equals(sender)) {
             return VIEW_TYPE_MESSAGE_SENT
         } else {
             return VIEW_TYPE_MESSAGE_RECEIVED

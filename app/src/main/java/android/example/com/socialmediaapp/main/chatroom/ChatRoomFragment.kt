@@ -32,7 +32,6 @@ class ChatRoomFragment : Fragment() {
 
         val args = ChatRoomFragmentArgs.fromBundle(requireArguments())
 
-
         Log.i("CHATROOMFRAGMENT", "${args.toBundle().getLong("roomId")}")
 
         val viewModelFactory = ChatRoomViewModelFactory(application, dataSource, args.roomId, args.user1)
@@ -41,7 +40,7 @@ class ChatRoomFragment : Fragment() {
 
         binding.rvChatList.layoutManager = LinearLayoutManager(activity)
 
-        val chatContentAdapter = ChatContentAdapter()
+        val chatContentAdapter = ChatContentAdapter(args.user1)
         binding.rvChatList.adapter = chatContentAdapter
 
         viewModel.chatContentList.observe(viewLifecycleOwner, Observer {
@@ -49,6 +48,12 @@ class ChatRoomFragment : Fragment() {
                 chatContentAdapter.data = it
             }
         })
+
+        binding.sendChatButton.setOnClickListener {
+            val chatContent = binding.edittextChat.text.toString()
+            viewModel.sendChat(chatContent)
+            binding.edittextChat.text.clear()
+        }
 
         return binding.root
     }

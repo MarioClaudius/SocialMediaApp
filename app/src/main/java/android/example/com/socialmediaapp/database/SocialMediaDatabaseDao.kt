@@ -68,4 +68,7 @@ interface SocialMediaDatabaseDao {
 
     @Insert
     suspend fun insertChatRoom(chatRoom: ChatRoom)
+
+    @Insert
+    suspend fun insertChat(chat: Chat)
 }
