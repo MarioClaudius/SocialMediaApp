@@ -60,7 +60,11 @@ class ChatRoomFragment : Fragment() {
             override fun handleOnBackPressed() {
                 val activity = activity as MainActivity
                 activity.showOrHideBottomNavigationView()
-                findNavController().navigate(R.id.action_chatroomFragment_to_homeFragment)
+                if(args.fromHome) {
+                    findNavController().navigate(ChatRoomFragmentDirections.actionChatroomFragmentToHomeFragment())
+                } else {
+                    findNavController().navigate(ChatRoomFragmentDirections.actionChatroomFragmentToChatFragment())
+                }
             }
         })
 

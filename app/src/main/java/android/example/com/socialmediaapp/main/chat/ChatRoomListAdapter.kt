@@ -3,10 +3,13 @@ package android.example.com.socialmediaapp.main.chat
 import android.example.com.socialmediaapp.R
 import android.example.com.socialmediaapp.database.SocialMediaDatabaseDao
 import android.example.com.socialmediaapp.database.entities.ChatRoom
+import android.example.com.socialmediaapp.main.MainActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.CoroutineScope
@@ -55,11 +58,18 @@ class ChatRoomListAdapter(
                 holder.timestampTv.text = sdf.format(timestamp)
             }
         }
+
+        holder.layout.setOnClickListener {
+            val activity = it.context as MainActivity
+            activity.showOrHideBottomNavigationView()
+            it.findNavController().navigate(ChatFragmentDirections.actionChatFragmentToChatroomFragment(chatroom.id, user, false))
+        }
     }
 
     override fun getItemCount() = data.size
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+        val layout = itemView.findViewById<ConstraintLayout>(R.id.chatroom_list_layout)
         val photo = itemView.findViewById<CircleImageView>(R.id.friend_chat_photo)
         val nameTv = itemView.findViewById<TextView>(R.id.friend_chat_name_tv)
         val lastChatTv = itemView.findViewById<TextView>(R.id.friend_chat_content_tv)
