@@ -70,7 +70,11 @@ class ChatRoomListAdapter(
         holder.layout.setOnClickListener {
             val activity = it.context as MainActivity
             activity.showOrHideBottomNavigationView()
-            it.findNavController().navigate(ChatFragmentDirections.actionChatFragmentToChatroomFragment(chatroom.id, user, false))
+            val friendName = when(user) {
+                chatroom.user1 -> chatroom.user2
+                else -> chatroom.user1
+            }
+            it.findNavController().navigate(ChatFragmentDirections.actionChatFragmentToChatroomFragment(chatroom.id, user, friendName,false))
         }
     }
 

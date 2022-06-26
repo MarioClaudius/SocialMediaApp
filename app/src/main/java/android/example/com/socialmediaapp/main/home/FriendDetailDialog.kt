@@ -76,7 +76,7 @@ class FriendDetailDialog(
 
                     withContext(Dispatchers.Main) {
                         val activity: MainActivity = listener.activity as MainActivity
-                        listener.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToChatroomFragment(chatroom.id, user1, true))
+                        listener.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToChatroomFragment(chatroom.id, user1, friendName,true))
                         activity.showOrHideBottomNavigationView()
                     }
                 }
