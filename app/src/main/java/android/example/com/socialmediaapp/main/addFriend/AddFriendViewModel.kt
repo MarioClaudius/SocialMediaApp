@@ -49,7 +49,12 @@ class AddFriendViewModel(
 
     fun insertFriendship(friendship: Friendship) {
         uiScope.launch {
-            database.insertFriendship(friendship)
+            withContext(Dispatchers.IO) {
+                database.insertFriendship(friendship)
+                withContext(Dispatchers.Main) {
+                    _friendRequestStatus.value = database.checkFriendRequest(friendship.user, friendship.friend)
+                }
+            }
         }
     }
 

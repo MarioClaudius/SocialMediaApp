@@ -53,11 +53,11 @@ class AddFriendFragment : Fragment() {
 
             if (binding.friendSearchAddButton.text.toString().equals("Chat")) {
                 viewModel.getChatroomByUserAndFriend(user, friend)
+            } else {
+                val friendship = Friendship(user = user, friend = friend, status = FriendshipStatus.PENDING)
+                viewModel.insertFriendship(friendship)
+                Log.i("AddFriendFragment", "INSERT BERHASIL")
             }
-            val friendship = Friendship(user = user, friend = friend, status = FriendshipStatus.PENDING)
-            viewModel.insertFriendship(friendship)
-            viewModel.checkAccountFriendRequest(user, friend)
-            Log.i("AddFriendFragment", "INSERT BERHASIL")
         }
 
         viewModel.chatroom.observe(viewLifecycleOwner, Observer { chatroom ->
@@ -75,7 +75,6 @@ class AddFriendFragment : Fragment() {
 //                Log.i("RequestFriendStatus", "SEKARANG " +status.name)
 //            }
 
-            // NOTES KONDISI TAMBAHIN KETIKA ACCEPTED
             if (status == FriendshipStatus.PENDING) {
                 binding.friendSearchAddButton.text = "Added"
                 binding.friendSearchAddButton.isEnabled = false
