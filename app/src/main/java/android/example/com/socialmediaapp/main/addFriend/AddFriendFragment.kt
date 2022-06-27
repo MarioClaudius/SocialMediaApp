@@ -68,13 +68,6 @@ class AddFriendFragment : Fragment() {
         })
 
         viewModel.friendRequestStatus.observe(viewLifecycleOwner, Observer { status ->
-//            if (status == null) {
-//                Log.i("RequestFriendStatus", "SEKARANG NULL")
-//            }
-//            else {
-//                Log.i("RequestFriendStatus", "SEKARANG " +status.name)
-//            }
-
             if (status == FriendshipStatus.PENDING) {
                 binding.friendSearchAddButton.text = "Added"
                 binding.friendSearchAddButton.isEnabled = false
