@@ -32,6 +32,8 @@ class AddFriendFragment : Fragment() {
     ): View? {
         binding = FragmentAddFriendBinding.inflate(inflater, container, false)
 
+        val user = requireActivity().intent.getStringExtra("id")!!
+
         val application = requireNotNull(this.activity).application
 
         val dataSource = SocialMediaDatabase.getInstance(application).socialMediaDatabaseDao
@@ -41,20 +43,29 @@ class AddFriendFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(AddFriendViewModel::class.java)
 
         binding.searchFriendButton.setOnClickListener {
-            val user = requireActivity().intent.getStringExtra("id")!!
             val friend = binding.friendSearchEdt.text.toString()
             viewModel.getAccountByUsername(friend)
             viewModel.checkAccountFriendRequest(user, friend)
         }
 
         binding.friendSearchAddButton.setOnClickListener {
-            val username = requireActivity().intent.getStringExtra("id")!!
             val friend = viewModel.friendAccount.value!!.username
-            val friendship = Friendship(user = username, friend = friend, status = FriendshipStatus.PENDING)
+
+            if (binding.friendSearchAddButton.text.toString().equals("Chat")) {
+                viewModel.getChatroomByUserAndFriend(user, friend)
+            }
+            val friendship = Friendship(user = user, friend = friend, status = FriendshipStatus.PENDING)
             viewModel.insertFriendship(friendship)
-            viewModel.checkAccountFriendRequest(username, friend)
+            viewModel.checkAccountFriendRequest(user, friend)
             Log.i("AddFriendFragment", "INSERT BERHASIL")
         }
+
+        viewModel.chatroom.observe(viewLifecycleOwner, Observer { chatroom ->
+            if (chatroom.id != 0L) {
+                val friend = viewModel.friendAccount.value!!.username
+                findNavController().navigate(AddFriendFragmentDirections.actionAddFriendFragmentToChatroomFragment(chatroom.id, user, friend, false))
+            }
+        })
 
         viewModel.friendRequestStatus.observe(viewLifecycleOwner, Observer { status ->
 //            if (status == null) {
@@ -63,10 +74,16 @@ class AddFriendFragment : Fragment() {
 //            else {
 //                Log.i("RequestFriendStatus", "SEKARANG " +status.name)
 //            }
+
+            // NOTES KONDISI TAMBAHIN KETIKA ACCEPTED
             if (status == FriendshipStatus.PENDING) {
                 binding.friendSearchAddButton.text = "Added"
                 binding.friendSearchAddButton.isEnabled = false
                 binding.friendSearchAddButton.setBackgroundColor(Color.GRAY)
+            } else if (status == FriendshipStatus.ACTIVE) {
+                binding.friendSearchAddButton.text = "Chat"
+                binding.friendSearchAddButton.isEnabled = true
+                binding.friendSearchAddButton.setBackgroundColor(Color.rgb(109, 208, 24))
             } else {
                 binding.friendSearchAddButton.text = "Add"
                 binding.friendSearchAddButton.isEnabled = true

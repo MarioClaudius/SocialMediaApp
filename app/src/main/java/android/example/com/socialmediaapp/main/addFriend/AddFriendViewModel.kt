@@ -3,6 +3,7 @@ package android.example.com.socialmediaapp.main.addFriend
 import android.app.Application
 import android.example.com.socialmediaapp.database.SocialMediaDatabaseDao
 import android.example.com.socialmediaapp.database.entities.Account
+import android.example.com.socialmediaapp.database.entities.ChatRoom
 import android.example.com.socialmediaapp.database.entities.Friendship
 import android.example.com.socialmediaapp.database.entities.FriendshipStatus
 import android.util.Log
@@ -26,6 +27,9 @@ class AddFriendViewModel(
     private val _friendRequestStatus = MutableLiveData<FriendshipStatus>()
     val friendRequestStatus : LiveData<FriendshipStatus> = _friendRequestStatus
 
+    private val _chatroom = MutableLiveData<ChatRoom>()
+    val chatroom : LiveData<ChatRoom> = _chatroom
+
     init {
         _friendRequestStatus.value = FriendshipStatus.REJECTED
     }
@@ -46,6 +50,12 @@ class AddFriendViewModel(
     fun insertFriendship(friendship: Friendship) {
         uiScope.launch {
             database.insertFriendship(friendship)
+        }
+    }
+
+    fun getChatroomByUserAndFriend(user: String, friend: String) {
+        uiScope.launch {
+            _chatroom.value = database.getChatRoomByUserAndFriend(user, friend)
         }
     }
 }
